@@ -6,7 +6,7 @@ from utilities import colors, utils
 from utilities.create import menu, widget
 from utilities.utils import get_color
 
-widget_size = 75
+widget_size = 50
 metric = [['0', '0', '1', '1', '2', '2', '3'],
           ['0', '1', '1', '2', '2', '3', '3'],
           ['1', '1', '2', '2', '3', '3', '4'],
@@ -22,7 +22,7 @@ def show():
     label_frame = menu.create_frame(base, colors.menu_base, 0, 0, 'top')
     button_frame = menu.create_frame(base, colors.menu_base, 0, 0, 'top')
 
-    widget.label(label_frame, f'Log productivity for {datetime.now().strftime(utils.date_format)}', widget_size*1.5, 'white').pack(padx=0, pady=10)
+    widget.label(label_frame, f'Log productivity for {datetime.now().strftime(utils.date_format)}', widget_size, 'white').pack(padx=0, pady=20)
 
     for row in range(0, len(metric)):
         for col in range(0, len(metric[row])):
