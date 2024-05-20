@@ -26,14 +26,12 @@ def create(title):  # Create a menu
     root.attributes('-fullscreen', True)
     root.state('zoomed')
 
-    header = tk.Frame(root, bg=colors.menu_base)
     content = tk.Frame(root, bg=colors.menu_base)
 
     root.columnconfigure(0, weight=1)
-    root.rowconfigure(0, weight=0)
+    root.rowconfigure(0, weight=1)
 
-    header.grid(row=0, sticky='news')
-    content.grid(row=1, sticky='news')
+    content.grid(row=0, sticky='news')
 
     base = tk.Canvas(master=content, bg=colors.menu_base, borderwidth=0, highlightthickness=0)
     base.pack(pady=80, padx=0, anchor="center")

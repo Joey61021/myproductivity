@@ -9,3 +9,4 @@ button_orange = '#f0932b'
 button_pink = '#ff7979'
 button_red = "#eb4d4b"
 button_wine_red = '#6e2726'
+button_null = "#2e2e2e"

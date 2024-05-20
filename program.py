@@ -1,7 +1,7 @@
 import datetime
 
 from managers import database_manager
-from menus import overview_menu, metric_menu
+from menus import overview_menu
 from utilities import logger
 from utilities.create import menu
 
