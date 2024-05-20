@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime
 
-from utilities import logger
+from utilities import logger, utils
 
 file_name = "db.sql"
 db = sqlite3.connect(file_name)
@@ -35,11 +35,11 @@ def log_day(metric):
     cursor = db.cursor()
 
     cursor.execute('''INSERT OR IGNORE INTO entries (date, metric) VALUES (?, ?)''',
-                   (datetime.now().strftime('%d-%m-%Y'), metric))
+                   (datetime.now().strftime(utils.date_format), metric))
     db.commit()
     cursor.close()
 
-    logger.connection(f'Values {datetime.now().strftime("%d-%m-%Y")}, {metric} has been entered into table "entries"')
+    logger.connection(f'Values {datetime.now().strftime(utils.date_format)}, {metric} has been entered into table "entries"')
 
 
 def date_logged(date):

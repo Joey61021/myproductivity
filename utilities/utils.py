@@ -2,8 +2,11 @@ from datetime import datetime
 from utilities import colors
 
 
+date_format = '%Y-%m-%d'
+
+
 def convert_date(date):
-    return datetime.strptime(date, '%d-%m-%Y').date()
+    return datetime.strptime(date, date_format).date()
 
 
 def get_color(value):
