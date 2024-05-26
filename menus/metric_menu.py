@@ -8,12 +8,12 @@ from utilities.utils import get_color
 
 widget_size = 50
 metric = [['0', '0', '1', '1', '2', '2', '3'],
-          ['0', '1', '1', '2', '2', '3', '3'],
-          ['1', '1', '2', '2', '3', '3', '4'],
-          ['1', '2', '2', '3', '3', '4', '5'],
-          ['2', '2', '3', '3', '4', '5', '5'],
-          ['2', '3', '3', '4', '5', '5', '6'],
-          ['3', '3', '4', '5', '5', '6', '6']]
+          ['0', '1', '1', '2', '2', '3', '4'],
+          ['1', '1', '2', '2', '3', '4', '4'],
+          ['1', '2', '2', '3', '4', '4', '5'],
+          ['2', '2', '3', '4', '4', '5', '5'],
+          ['2', '3', '4', '4', '5', '5', '6'],
+          ['3', '4', '4', '5', '5', '6', '6']]
 
 
 def show():
@@ -24,9 +24,17 @@ def show():
 
     widget.label(label_frame, f'Log productivity for {datetime.now().strftime(utils.date_format)}', widget_size, 'white').pack(padx=0, pady=20)
 
-    for row in range(0, len(metric)):
-        for col in range(0, len(metric[row])):
-            widget.button(button_frame, "", widget_size, True, get_color(int(metric[row][col])), 'white', lambda m=metric[row][col]: log_metric(m)).grid(row=row, column=col, padx=1, pady=1)
+    for row in range(0, len(metric)+1):
+        cols = len(metric[row-1])
+        for col in range(0, cols+1):
+            if row == 0 and col == 0:
+                continue
+            if row == 0 or col == 0:
+                text = f'{round((cols-col+1)/cols*100)}%\nTasks' if row == 0 else f'{round(row/(len(metric[col-1]))*100)}%\nSocial'
+                widget.button(button_frame, text, widget_size, True, colors.button_null, colors.button_null, None).grid(row=row, column=col, padx=1, pady=1)
+            else:
+                widget.button(button_frame, "", widget_size, True, get_color(int(metric[row-1][col-1])), 'white',
+                              lambda m=metric[row-1][col-1]: log_metric(m)).grid(row=row, column=col, padx=1, pady=1)
 
 
 def log_metric(value):
