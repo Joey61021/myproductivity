@@ -1,18 +1,23 @@
 import os
 import tkinter as tk
+from datetime import datetime
 
 import customtkinter as ctk
+from utilities import colors
+from utilities.create import widget
 
 import program
-from utilities import colors
 
 ctk.set_default_color_theme("dark-blue")
 
-root = tk.Tk()
+root = ctk.CTk()
 
 # Get icon file path
 executable_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(executable_dir, "../../media/icon.ico")
+# file_path = os.path.join(executable_dir, "../media/header-icon.png")
+
+header_title: ctk.CTkLabel
+update_id: str
 
 
 def run():  # Start root
@@ -22,21 +27,49 @@ def run():  # Start root
 def create(title):  # Create a menu
     # Menu appearance
     root.title(f"{title} | {program.name} {program.version}")
-    root.iconbitmap(file_path)
+    # root.iconbitmap('root/media/icon.ico')
     root.attributes('-fullscreen', True)
     root.state('zoomed')
 
+    # Add frames
+    header = tk.Frame(root, bg=colors.menu_base)
     content = tk.Frame(root, bg=colors.menu_base)
 
     root.columnconfigure(0, weight=1)
-    root.rowconfigure(0, weight=1)
+    root.rowconfigure(0, weight=0)
+    root.rowconfigure(1, weight=1)
 
-    content.grid(row=0, sticky='news')
+    header.grid(row=0, sticky='news')
+    content.grid(row=1, sticky='news')
+
+    # Add labels
+    global header_title
+    header_title = title_label = widget.label(header, f"{program.name} | {datetime.now().strftime('%X')}", 18, 'white')
+    title_label.pack(padx=12, pady=10, side="left")
 
     base = tk.Canvas(master=content, bg=colors.menu_base, borderwidth=0, highlightthickness=0)
     base.pack(pady=80, padx=0, anchor="center")
 
+    stop_update_loop()
+    global update_id
+    update_id = None
+    update_time()
+
     return base
+
+
+def update_time():
+    text = f"{program.name} | {datetime.now().strftime('%X')}"
+    header_title.configure(text=text)
+    global update_id
+    update_id = root.after(1000, update_time)
+
+
+def stop_update_loop():
+    try:
+        root.after_cancel(update_id)
+    except NameError:
+        return
 
 
 # Creates a frame above the base

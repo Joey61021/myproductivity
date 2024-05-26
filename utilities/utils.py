@@ -1,6 +1,6 @@
 from datetime import datetime
-from utilities import colors
 
+from utilities import colors
 
 date_format = '%Y-%m-%d'
 

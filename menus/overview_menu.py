@@ -40,7 +40,17 @@ def show():
         widget.label(log_frame, f"Log date for {date_today.replace('-', '/')}?", widget_size, 'white').pack(padx=10, pady=10, side='left')
         widget.button(log_frame, "Log Date", widget_size, False, colors.button_green, 'white', lambda: [None, metric_menu.show(), menu.destroy(base)][0]).pack(padx=10, pady=10, side='right')
 
-    button_frame = menu.create_frame(base, colors.menu_base, 0, 0, 'top')
+    content_frame = menu.create_frame(base, colors.menu_base, 0, 0, 'top')
+    button_frame = menu.create_frame(content_frame, colors.menu_base, 10, 0, 'left')
+    info_frame = menu.create_frame(content_frame, colors.menu_frame, 10, 0, 'right')
+
+    def get_average_productivity():
+        retval = 0
+        for entry in entries:
+            retval += entry[1]
+        return round((retval / len(entries) / len(entries)) * 100)
+
+    widget.label(info_frame, f"Average productivity:\n{get_average_productivity()}%", widget_size/1.5, 'white').pack(padx=0, pady=10)
 
     rows = round(total_days/7)+1
     for row in range(0, rows):

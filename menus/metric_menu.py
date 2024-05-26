@@ -42,5 +42,6 @@ def show():
 
 
 def log_metric(value):
-    database_manager.log_day(int(value))
-    overview_menu.show()
+    if not database_manager.date_logged(datetime.now().strftime(utils.date_format)):
+        database_manager.log_day(int(value))
+        overview_menu.show()
