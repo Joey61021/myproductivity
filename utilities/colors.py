@@ -1,5 +1,6 @@
 # Menus
-menu_base = "#121212"
+menu_base = "#1c1c1c"
+menu_frame = "#242424"
 
 # Buttons
 button_lime = "#badc58"
