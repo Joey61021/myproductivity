@@ -14,7 +14,7 @@ def label(master, text, size, text_color):
     return result
 
 
-def button(master, text, size, squared, fg_color, hover_color, command):
+def button(master, text, image, size, squared, fg_color, hover_color, command):
     result = ctk.CTkButton(master=master, text=text, height=size, width=size * 4,
                            fg_color=fg_color, hover_color=hover_color)
     if squared:
@@ -23,6 +23,8 @@ def button(master, text, size, squared, fg_color, hover_color, command):
         result.configure(text=text[1:-1], font=(font, size * 0.33, 'bold'))
     else:
         result.configure(font=(font, size * 0.33))
+    if image is not None:
+        result.configure(image=image)
     if command is not None:
         result.configure(command=command)
     return result

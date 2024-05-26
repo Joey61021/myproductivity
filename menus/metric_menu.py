@@ -26,7 +26,7 @@ def show():
     widget.label(label_frame, f'Log productivity for {datetime.now().strftime(utils.date_format).replace("-", "/")}', widget_size, 'white').pack(padx=0, pady=20)
 
     widget.label(overview_frame, f"Changed your mind?", widget_size/1.5, 'white').pack(padx=10, pady=10, side='left')
-    widget.button(overview_frame, "Go back", widget_size/1.5, False, colors.button_green, 'white', lambda: [None, overview_menu.show(), menu.destroy(base)][0]).pack(padx=10, pady=10, side='right')
+    widget.button(overview_frame, "Go back", None, widget_size/1.5, False, colors.button_green, 'white', lambda: [None, overview_menu.show(), menu.destroy(base)][0]).pack(padx=10, pady=10, side='right')
 
     for row in range(0, len(metric)+1):
         cols = len(metric[row-1])
@@ -35,9 +35,9 @@ def show():
                 continue
             if row == 0 or col == 0:
                 text = f'{round((cols-col+1)/cols*100)}%\nTasks' if row == 0 else f'{round(row/(len(metric[col-1]))*100)}%\nSocial'
-                widget.button(button_frame, text, widget_size, True, colors.button_null, colors.button_null, None).grid(row=row, column=col, padx=1, pady=1)
+                widget.button(button_frame, text, None, widget_size, True, colors.button_null, colors.button_null, None).grid(row=row, column=col, padx=1, pady=1)
             else:
-                widget.button(button_frame, "", widget_size, True, get_color(int(metric[row-1][col-1])), 'white',
+                widget.button(button_frame, "", None, widget_size, True, get_color(int(metric[row-1][col-1])), 'white',
                               lambda m=metric[row-1][col-1]: log_metric(m)).grid(row=row, column=col, padx=1, pady=1)
 
 

@@ -3,10 +3,12 @@ import tkinter as tk
 from datetime import datetime
 
 import customtkinter as ctk
-from utilities import colors
-from utilities.create import widget
+from PIL import Image
 
 import program
+from menus import settings_menu
+from utilities import colors
+from utilities.create import widget
 
 ctk.set_default_color_theme("dark-blue")
 
@@ -14,7 +16,7 @@ root = ctk.CTk()
 
 # Get icon file path
 executable_dir = os.path.dirname(os.path.abspath(__file__))
-# file_path = os.path.join(executable_dir, "../media/header-icon.png")
+file_path = os.path.join(executable_dir, "../../media/cog.png")
 
 header_title: ctk.CTkLabel
 update_id: str
@@ -49,6 +51,9 @@ def create(title):  # Create a menu
 
     base = tk.Canvas(master=content, bg=colors.menu_base, borderwidth=0, highlightthickness=0)
     base.pack(pady=80, padx=0, anchor="center")
+
+    button_image = ctk.CTkImage(Image.open(file_path), size=(22, 22))
+    widget.button(header, '', button_image, 38, True, colors.button_null, 'white', lambda b=base: [None, destroy(b), settings_menu.show()][0]).pack(padx=12, pady=10, side="right")
 
     stop_update_loop()
     global update_id
